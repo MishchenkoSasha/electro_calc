@@ -2,41 +2,30 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Калькулятор затрат на авто</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Калькулятор затрат на электро и бензин авто</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Калькулятор затрат на электро и бензин</h1>
-
+  <h1>Калькулятор затрат на электро и бензин авто</h1>
   <form id="calcForm">
-    <label>
-      Тип авто:  
-      <select id="fuelType" required>
-        <option value="">Выберите...</option>
-        <option value="бензин">Бензин</option>
-        <option value="электро">Электро</option>
-      </select>
-    </label><br><br>
-
-    <label>
-      Пробег (км):  
-      <input type="number" id="distance" min="0" step="any" required />
-    </label><br><br>
-
-    <label>
-      Расход топлива/энергии (л или кВт⋅ч на 100 км):  
-      <input type="number" id="consumption" min="0" step="any" required />
-    </label><br><br>
-
-    <label>
-      Цена за литр бензина / кВт⋅ч электроэнергии:  
-      <input type="number" id="price" min="0" step="any" required />
-    </label><br><br>
-
+    <fieldset>
+      <legend>Электромобиль</legend>
+      <label>Расход (кВт⋅ч на 100 км): <input type="number" id="elecConsumption" min="0" step="0.01" required></label><br />
+      <label>Цена за 1 кВт⋅ч: <input type="number" id="elecPrice" min="0" step="0.01" required></label>
+    </fieldset>
+    <fieldset>
+      <legend>Бензиновое авто</legend>
+      <label>Расход (л на 100 км): <input type="number" id="fuelConsumption" min="0" step="0.01" required></label><br />
+      <label>Цена за 1 литр бензина: <input type="number" id="fuelPrice" min="0" step="0.01" required></label>
+    </fieldset>
+    <fieldset>
+      <legend>Пробег</legend>
+      <label>Ежедневный пробег (км): <input type="number" id="dailyDistance" min="0" step="0.1" required></label>
+    </fieldset>
     <button type="submit">Рассчитать</button>
   </form>
-
-  <h2 id="result"></h2>
+  <div id="result"></div>
 
   <script src="script.js"></script>
 </body>

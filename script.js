@@ -1,29 +1,42 @@
-document.getElementById('calcForm').addEventListener('submit', function(event) {
-  event.preventDefault();
+document.getElementById('calcForm').addEventListener('submit', function(e) {
+  e.preventDefault();
 
-  const fuelType = document.getElementById('fuelType').value;
-  const distance = parseFloat(document.getElementById('distance').value);
-  const consumption = parseFloat(document.getElementById('consumption').value);
-  const price = parseFloat(document.getElementById('price').value);
+  const elecConsumption = parseFloat(document.getElementById('elecConsumption').value);
+  const elecPrice = parseFloat(document.getElementById('elecPrice').value);
+  const fuelConsumption = parseFloat(document.getElementById('fuelConsumption').value);
+  const fuelPrice = parseFloat(document.getElementById('fuelPrice').value);
+  const dailyDistance = parseFloat(document.getElementById('dailyDistance').value);
 
-  if (!fuelType) {
-    alert('Пожалуйста, выберите тип авто');
-    return;
-  }
-  if (isNaN(distance) || distance < 0) {
-    alert('Введите корректный пробег');
-    return;
-  }
-  if (isNaN(consumption) || consumption < 0) {
-    alert('Введите корректный расход топлива/энергии');
-    return;
-  }
-  if (isNaN(price) || price < 0) {
-    alert('Введите корректную цену');
-    return;
+  const elecCost100 = elecConsumption * elecPrice;
+  const fuelCost100 = fuelConsumption * fuelPrice;
+
+  const elecDailyCost = (dailyDistance / 100) * elecCost100;
+  const fuelDailyCost = (dailyDistance / 100) * fuelCost100;
+
+  const diffDaily = fuelDailyCost - elecDailyCost;
+  const diffWeekly = diffDaily * 7;
+  const diffMonthly = diffDaily * 30;
+  const diffYearly = diffDaily * 365;
+
+  const formatMoney = num => num.toFixed(2);
+
+  let resultText = '';
+  if(diffDaily > 0) {
+    resultText = `Вы экономите:`;
+  } else if(diffDaily < 0) {
+    resultText = `Вы тратите больше:`;
+  } else {
+    resultText = `Расходы равны.`;
   }
 
-  const cost = (consumption / 100) * distance * price;
-
-  document.getElementById('result').textContent = `Общие затраты на ${fuelType}: ${cost.toFixed(2)}`;
+  document.getElementById('result').innerHTML = `
+    <h3>Результаты</h3>
+    <p>${resultText}</p>
+    <ul>
+      <li>В день: ${formatMoney(Math.abs(diffDaily))}</li>
+      <li>В неделю: ${formatMoney(Math.abs(diffWeekly))}</li>
+      <li>В месяц: ${formatMoney(Math.abs(diffMonthly))}</li>
+      <li>В год: ${formatMoney(Math.abs(diffYearly))}</li>
+    </ul>
+  `;
 });
