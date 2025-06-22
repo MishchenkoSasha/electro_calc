@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Калькулятор затрат на авто</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Калькулятор затрат на электро и бензин</h1>
+
+  <form id="calcForm">
+    <label>
+      Тип авто:  
+      <select id="fuelType" required>
+        <option value="">Выберите...</option>
+        <option value="бензин">Бензин</option>
+        <option value="электро">Электро</option>
+      </select>
+    </label><br><br>
+
+    <label>
+      Пробег (км):  
+      <input type="number" id="distance" min="0" step="any" required />
+    </label><br><br>
+
+    <label>
+      Расход топлива/энергии (л или кВт⋅ч на 100 км):  
+      <input type="number" id="consumption" min="0" step="any" required />
+    </label><br><br>
+
+    <label>
+      Цена за литр бензина / кВт⋅ч электроэнергии:  
+      <input type="number" id="price" min="0" step="any" required />
+    </label><br><br>
+
+    <button type="submit">Рассчитать</button>
+  </form>
+
+  <h2 id="result"></h2>
+
+  <script src="script.js"></script>
+</body>
+</html>
